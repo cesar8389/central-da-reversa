@@ -28,6 +28,12 @@ Feito como **template**: para um cliente novo, copie o projeto e troque só `src
    ```
 5. `npm install && npm run dev` e abra http://localhost:3000.
 
+## Demonstração (sem Firebase)
+
+`npm run build:demo` gera o site estático em `out/` com dados fictícios e já entra como administrador
+(nada é salvo de verdade, tudo some ao recarregar). Ele é publicado na branch `gh-pages` para o GitHub Pages
+(`/central-da-reversa/`). Para outro nome de repositório, ajuste `NEXT_PUBLIC_BASE_PATH` em `package.json`.
+
 ## Primeiro administrador
 
 Ninguém vira admin pelo site (as regras impedem). Faça assim:

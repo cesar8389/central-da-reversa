@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
+import { BASE, DEMO } from "@/lib/demo";
 import { site } from "@/site.config";
 
 const links = [
@@ -16,9 +16,15 @@ export default function Header() {
   const { user, perfil, sair } = useAuth();
   return (
     <header className="bg-black text-white">
+      {DEMO && (
+        <div className="bg-amber-100 px-4 py-1 text-center text-xs text-amber-900">
+          Página de demonstração com dados fictícios. Nada é salvo de verdade.
+        </div>
+      )}
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2">
         <Link href="/" className="flex items-center gap-3">
-          <Image src="/logo.png" alt={site.nome} width={56} height={56} priority className="h-14 w-14" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`${BASE}/logo.png`} alt={site.nome} width={56} height={56} className="h-14 w-14" />
           <span className="hidden text-lg font-bold text-brand sm:inline">{site.nome}</span>
         </Link>
         <nav className="flex flex-wrap gap-4 text-sm">

@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { DEMO } from "./demo";
 import { auth, db, firebaseConfigurado } from "./firebase";
 import type { Perfil } from "./types";
 
@@ -23,13 +24,24 @@ interface Ctx {
 
 const AuthCtx = createContext<Ctx | null>(null);
 
+// Na demonstração, a pessoa já entra como administradora (nada é salvo de verdade).
+const demoUser = { uid: "demo", email: "demo@exemplo.com" } as User;
+const demoPerfil: Perfil = {
+  nome: "Administrador (demo)",
+  email: "demo@exemplo.com",
+  whatsapp: "(15) 99999-9999",
+  empresa: "",
+  cidade: "Sumaré",
+  papel: "admin",
+};
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [perfil, setPerfil] = useState<Perfil | null>(null);
-  const [carregando, setCarregando] = useState(firebaseConfigurado);
+  const [user, setUser] = useState<User | null>(DEMO ? demoUser : null);
+  const [perfil, setPerfil] = useState<Perfil | null>(DEMO ? demoPerfil : null);
+  const [carregando, setCarregando] = useState(firebaseConfigurado && !DEMO);
 
   useEffect(() => {
-    if (!firebaseConfigurado) return;
+    if (!firebaseConfigurado || DEMO) return;
     return onAuthStateChanged(auth(), async (u) => {
       setUser(u);
       if (u) {
@@ -47,10 +59,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const entrar = useCallback(async (email: string, senha: string) => {
+    if (DEMO) {
+      setUser(demoUser);
+      setPerfil(demoPerfil);
+      return;
+    }
     await signInWithEmailAndPassword(auth(), email, senha);
   }, []);
 
   const cadastrar = useCallback<Ctx["cadastrar"]>(async ({ senha, ...dados }) => {
+    if (DEMO) {
+      setUser({ uid: "demo-cliente", email: dados.email } as User);
+      setPerfil({ ...dados, papel: "cliente" });
+      return;
+    }
     const cred = await createUserWithEmailAndPassword(auth(), dados.email, senha);
     const novo: Perfil = { ...dados, papel: "cliente" };
     await setDoc(doc(db(), "perfis", cred.user.uid), novo);
@@ -58,6 +80,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const sair = useCallback(async () => {
+    if (DEMO) {
+      setUser(null);
+      setPerfil(null);
+      return;
+    }
     await signOut(auth());
   }, []);
 

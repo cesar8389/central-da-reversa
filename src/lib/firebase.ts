@@ -12,7 +12,8 @@ const config = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-export const firebaseConfigurado = Boolean(config.apiKey && config.projectId);
+export const firebaseConfigurado =
+  process.env.NEXT_PUBLIC_DEMO === "1" || Boolean(config.apiKey && config.projectId);
 
 // Inicialização preguiçosa: só roda no navegador, quando alguém precisa do Firebase.
 function app(): FirebaseApp {

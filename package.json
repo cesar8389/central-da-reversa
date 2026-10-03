@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "build:demo": "NEXT_PUBLIC_DEMO=1 NEXT_PUBLIC_BASE_PATH=/central-da-reversa next build"
   },
   "dependencies": {
     "firebase": "^12.19.0",
