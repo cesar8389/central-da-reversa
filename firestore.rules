@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/perfis/$(request.auth.uid))
+        && get(/databases/$(database)/documents/perfis/$(request.auth.uid)).data.papel == 'admin';
+    }
+
+    // Catálogo: qualquer pessoa lê, só admin escreve.
+    match /paletes/{paleteId} {
+      allow read: if true;
+      allow write: if isAdmin();
+      match /produtos/{produtoId} {
+        allow read: if true;
+        allow write: if isAdmin();
+      }
+    }
+
+    // Perfis: o dono lê e cria como "cliente"; só admin muda o papel.
+    match /perfis/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.papel == 'cliente';
+      allow update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.papel == resource.data.papel;
+      allow write: if isAdmin();
+    }
+
+    // Interesses: o cliente registra o próprio; admin lê e apaga.
+    match /interesses/{id} {
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+  }
+}

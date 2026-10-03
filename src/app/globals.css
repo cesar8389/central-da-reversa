@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Identidade visual: troque estas variáveis para adaptar o site a outro cliente. */
+@theme {
+  --color-brand: #1d4ed8;
+  --color-brand-dark: #1e3a8a;
+  --color-brand-soft: #eff4ff;
+  --color-ink: #111827;
+  --color-muted: #6b7280;
+  --color-line: #e5e7eb;
+  --color-wpp: #16a34a;
+  --color-wpp-dark: #15803d;
+}
+
+body {
+  background: #f9fafb;
+  color: var(--color-ink);
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background: white;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.95rem;
+}
+.input:focus {
+  outline: 2px solid var(--color-brand);
+  outline-offset: -1px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary { background: var(--color-brand); color: white; }
+.btn-primary:hover:not(:disabled) { background: var(--color-brand-dark); }
+.btn-wpp { background: var(--color-wpp); color: white; }
+.btn-wpp:hover:not(:disabled) { background: var(--color-wpp-dark); }
+.btn-ghost { border: 1px solid var(--color-line); background: white; }
+.btn-ghost:hover:not(:disabled) { background: #f3f4f6; }
+.btn-danger { background: #dc2626; color: white; }
+.btn-danger:hover:not(:disabled) { background: #b91c1c; }
+.label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.25rem; }
