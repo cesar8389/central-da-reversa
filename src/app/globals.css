@@ -2,9 +2,10 @@
 
 /* Identidade visual: troque estas variáveis para adaptar o site a outro cliente. */
 @theme {
-  --color-brand: #1d4ed8;
-  --color-brand-dark: #1e3a8a;
-  --color-brand-soft: #eff4ff;
+  --color-brand: #fac403;
+  --color-brand-dark: #e0ae00;
+  --color-brand-soft: #fff8db;
+  --color-accent: #a16207; /* amarelo escuro, legível sobre fundo branco */
   --color-ink: #111827;
   --color-muted: #6b7280;
   --color-line: #e5e7eb;
@@ -42,7 +43,7 @@ body {
   transition: background 0.15s;
 }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
-.btn-primary { background: var(--color-brand); color: white; }
+.btn-primary { background: var(--color-brand); color: #111; }
 .btn-primary:hover:not(:disabled) { background: var(--color-brand-dark); }
 .btn-wpp { background: var(--color-wpp); color: white; }
 .btn-wpp:hover:not(:disabled) { background: var(--color-wpp-dark); }

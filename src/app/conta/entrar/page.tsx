@@ -47,7 +47,7 @@ export default function Entrar() {
       </form>
       <p className="mt-4 text-sm text-muted">
         Ainda não tem conta?{" "}
-        <Link href="/conta/cadastro" className="font-semibold text-brand">
+        <Link href="/conta/cadastro" className="font-semibold text-accent">
           Cadastre-se
         </Link>
       </p>

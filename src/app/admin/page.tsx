@@ -66,7 +66,7 @@ function Lista() {
               {lista.map((p) => (
                 <tr key={p.id}>
                   <td className="px-4 py-2 font-medium">
-                    <Link href={`/palete/${p.id}`} className="hover:text-brand">
+                    <Link href={`/palete/${p.id}`} className="hover:text-accent">
                       {p.nome}
                     </Link>
                   </td>
@@ -74,7 +74,7 @@ function Lista() {
                   <td className="px-4 py-2 text-right">{formatarCentavos(p.valorVenda)}</td>
                   <td className="px-4 py-2">{rotulo[p.status]}</td>
                   <td className="space-x-3 px-4 py-2 text-right">
-                    <Link href={`/admin/paletes/${p.id}`} className="font-semibold text-brand">
+                    <Link href={`/admin/paletes/${p.id}`} className="font-semibold text-accent">
                       Editar
                     </Link>
                     <button onClick={() => excluir(p)} className="font-semibold text-red-600">

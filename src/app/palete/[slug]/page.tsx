@@ -129,7 +129,7 @@ export default function PaletePagina() {
             ) : (
               <p className="text-xs text-muted">
                 Compra concluída pelo WhatsApp. Com conta, o interesse fica registrado.{" "}
-                <Link href="/conta/cadastro" className="font-semibold text-brand">
+                <Link href="/conta/cadastro" className="font-semibold text-accent">
                   Criar conta
                 </Link>
               </p>

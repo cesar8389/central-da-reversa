@@ -56,7 +56,7 @@ function Lista() {
                     </a>
                   </td>
                   <td className="px-4 py-2">
-                    <Link href={`/palete/${i.paleteId}`} className="hover:text-brand">
+                    <Link href={`/palete/${i.paleteId}`} className="hover:text-accent">
                       {i.paleteNome}
                     </Link>
                   </td>

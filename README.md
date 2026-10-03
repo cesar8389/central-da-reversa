@@ -2,7 +2,7 @@
 
 Catálogo de paletes com compra pelo WhatsApp. Next.js 16 + Firebase (Firestore, Authentication, Storage) + Vercel.
 Feito como **template**: para um cliente novo, copie o projeto e troque só `src/site.config.ts`, as cores em
-`src/app/globals.css` e o `.env.local`.
+`src/app/globals.css`, o logo (`public/logo.png` e `src/app/icon.png`) e o `.env.local`.
 
 ## O que tem
 
@@ -58,7 +58,7 @@ A importação substitui a lista atual e atualiza a quantidade de produtos.
 ## Novo cliente a partir deste template
 
 1. Copie o repositório e crie um projeto Firebase e um projeto Vercel para o cliente.
-2. Edite `src/site.config.ts` (nome, WhatsApp, endereço, categorias, textos) e as cores em `globals.css`.
+2. Edite `src/site.config.ts` (nome, WhatsApp, endereço, categorias, textos), as cores em `globals.css` e troque `public/logo.png` e `src/app/icon.png`.
 3. Siga "Como rodar" e "Primeiro administrador".
 
 ## Estrutura do banco (Firestore)

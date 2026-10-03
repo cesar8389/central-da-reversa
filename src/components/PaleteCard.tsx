@@ -24,8 +24,8 @@ export default function PaleteCard({ p }: { p: Palete }) {
         )}
       </div>
       <div className="space-y-1 p-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand">{p.categoria}</p>
-        <h3 className="font-semibold group-hover:text-brand">{p.nome}</h3>
+        <p className="text-xs font-semibold uppercase tracking-wide text-accent">{p.categoria}</p>
+        <h3 className="font-semibold group-hover:text-accent">{p.nome}</h3>
         <p className="text-sm text-muted">
           Valor avaliado <span className="line-through">{formatarCentavos(p.valorAvaliado)}</span>
         </p>
