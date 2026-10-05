@@ -3,7 +3,7 @@ import { site } from "@/site.config";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t border-line bg-white">
+    <footer className="shrink-0 border-t border-line bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-6 text-sm text-muted">
         <span>
           © {new Date().getFullYear()} {site.nome}

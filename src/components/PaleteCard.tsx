@@ -8,7 +8,7 @@ export default function PaleteCard({ p }: { p: Palete }) {
   return (
     <Link
       href={`/palete/${p.id}`}
-      className="group overflow-hidden rounded-xl border border-line bg-white shadow-sm transition hover:shadow-md"
+      className="group overflow-hidden rounded border border-line bg-white transition hover:border-accent"
     >
       <div className="relative aspect-[4/3] bg-gray-100">
         {p.fotos[0] ? (
@@ -24,6 +24,7 @@ export default function PaleteCard({ p }: { p: Palete }) {
         )}
       </div>
       <div className="space-y-1 p-4">
+        <span className="mb-2 block font-mono text-[10px] uppercase tracking-wider text-muted">LOTE / {p.codigo}</span>
         <p className="text-xs font-semibold uppercase tracking-wide text-accent">{p.categoria}</p>
         <h3 className="font-semibold group-hover:text-accent">{p.nome}</h3>
         <p className="text-sm text-muted">
@@ -37,6 +38,9 @@ export default function PaleteCard({ p }: { p: Palete }) {
           {p.qtdProdutos} produtos ·{" "}
           {p.qtdPaletes} {p.qtdPaletes === 1 ? `${site.item.singular} disponível` : `${site.item.plural} disponíveis`}
         </p>
+        <div className="mt-4 flex items-center justify-between border-t border-line pt-3 text-xs font-semibold">
+          <span>Conhecer o lote</span><span aria-hidden="true">↗</span>
+        </div>
       </div>
     </Link>
   );

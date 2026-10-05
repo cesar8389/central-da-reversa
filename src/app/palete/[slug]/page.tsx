@@ -9,6 +9,7 @@ import { listarProdutos, obterPalete, registrarInteresse } from "@/lib/paletes";
 import type { Palete, Produto } from "@/lib/types";
 import { linkWhatsapp, mensagemPalete } from "@/lib/whatsapp";
 import { site } from "@/site.config";
+import { paletesDemo, produtosDemo, ehPaleteDemo } from "@/lib/demo-paletes";
 
 export default function PaletePagina() {
   const { slug } = useParams<{ slug: string }>();
@@ -19,6 +20,11 @@ export default function PaletePagina() {
   const [verProdutos, setVerProdutos] = useState(false);
 
   useEffect(() => {
+    setFoto(0);
+    setProdutos(null);
+    setVerProdutos(false);
+    const exemplo = paletesDemo.find((item) => item.id === slug);
+    if (exemplo) { setP(exemplo); return; }
     obterPalete(slug)
       .then(setP)
       .catch(() => setP(null));
@@ -26,11 +32,11 @@ export default function PaletePagina() {
 
   async function abrirProdutos() {
     setVerProdutos((v) => !v);
-    if (!produtos) setProdutos(await listarProdutos(slug).catch(() => []));
+    if (!produtos) setProdutos(produtosDemo[slug] ?? await listarProdutos(slug).catch(() => []));
   }
 
   async function comprar() {
-    if (!p) return;
+    if (!p || ehPaleteDemo(p.id)) return;
     if (user && perfil) {
       // Com conta, o interesse fica registrado para o atendimento comercial.
       registrarInteresse({
@@ -56,7 +62,8 @@ export default function PaletePagina() {
       </main>
     );
 
-  const indisponivel = p.status === "vendido";
+  const demonstracao = ehPaleteDemo(p.id);
+  const indisponivel = p.status === "vendido" || demonstracao;
   const dados: [string, string][] = [
     ["Categoria", p.categoria],
     ["Condição", p.condicao],
@@ -122,9 +129,9 @@ export default function PaletePagina() {
 
           <div className="mt-6 space-y-3">
             <button onClick={comprar} disabled={indisponivel} className="btn btn-wpp w-full !py-3 text-base">
-              {indisponivel ? "Indisponível" : "Comprar pelo WhatsApp"}
+              {demonstracao ? "Lote de demonstração — sem venda" : indisponivel ? "Indisponível" : "Comprar pelo WhatsApp"}
             </button>
-            {user ? (
+            {demonstracao ? <p className="text-xs text-muted">Produtos e valores fictícios para visualizar o catálogo. Nenhum interesse é registrado.</p> : user ? (
               <p className="text-xs text-muted">Compra concluída pelo WhatsApp. Seu interesse fica registrado.</p>
             ) : (
               <p className="text-xs text-muted">
